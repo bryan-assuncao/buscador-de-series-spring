@@ -1,4 +1,4 @@
-package br.com.bryam.screenmatch.service;
+package br.com.bryan.screenmatch.service;
 
 import java.io.IOException;
 import java.net.URI;
