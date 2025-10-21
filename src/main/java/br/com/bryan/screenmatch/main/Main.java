@@ -5,16 +5,20 @@ import br.com.bryan.screenmatch.model.DadosTemporada;
 import br.com.bryan.screenmatch.service.ConsumoAPI;
 import br.com.bryan.screenmatch.service.ConverteDados;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import io.github.cdimascio.dotenv.Dotenv;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+
 public class Main {
     private Scanner leitura = new Scanner(System.in);
 
     private final String ENDERECO = "http://www.omdbapi.com/?t=";
-    private final String APIKEY = "&apikey=27205e74";
+    Dotenv dotenv = Dotenv.load();
+    private String APIKEY = dotenv.get("APIKEY");
+
     private ConsumoAPI consumo = new ConsumoAPI();
     private ConverteDados converte = new ConverteDados();
 
@@ -24,7 +28,7 @@ public class Main {
 
         String nomeSerie = leitura.nextLine().trim().replace(" ", "+");
 
-        String json = consumo.obterDados(ENDERECO + nomeSerie +  APIKEY);
+        String json = consumo.obterDados(ENDERECO + nomeSerie + APIKEY);
 
         DadosSerie dadosSerie = converte.obterDados(json, DadosSerie.class);
         System.out.println(dadosSerie);
