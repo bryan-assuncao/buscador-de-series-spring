@@ -24,7 +24,7 @@ public class Main {
 
         String nomeSerie = leitura.nextLine().trim().replace(" ", "+");
 
-        String json = consumo.obterDados(ENDERECO + nomeSerie + APIKEY);
+        String json = consumo.obterDados(ENDERECO + nomeSerie +  APIKEY);
 
         DadosSerie dadosSerie = converte.obterDados(json, DadosSerie.class);
         System.out.println(dadosSerie);
@@ -36,6 +36,16 @@ public class Main {
             temporadas.add(dadosTemporada);
         }
         temporadas.forEach(System.out::println);
+
+//        for(int i = 0; i < dadosSerie.totalTemporadas(); i++){
+//            List<DadosEpisodio> episodiosTemporada = temporadas.get(i).episodios();
+//            for (int j = 0; j < episodiosTemporada.size(); j++){
+//                System.out.println(episodiosTemporada.get(j).nomeEpisodio());
+//            }
+//        }
+
+        temporadas.forEach(t -> t.episodios().forEach(e -> System.out.println(e.nomeEpisodio())));
+
 
         leitura.close();
     }
