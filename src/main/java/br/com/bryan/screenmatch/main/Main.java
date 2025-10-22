@@ -1,5 +1,6 @@
 package br.com.bryan.screenmatch.main;
 
+import br.com.bryan.screenmatch.model.DadosEpisodio;
 import br.com.bryan.screenmatch.model.DadosSerie;
 import br.com.bryan.screenmatch.model.DadosTemporada;
 import br.com.bryan.screenmatch.service.ConsumoAPI;
@@ -8,8 +9,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import io.github.cdimascio.dotenv.Dotenv;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 
 public class Main {
@@ -41,8 +44,21 @@ public class Main {
         }
         temporadas.forEach(System.out::println);
 
-        temporadas.forEach(t -> t.episodios().forEach(e -> System.out.println(e.nomeEpisodio())));
+        temporadas.forEach(t -> t.episodios()
+                .forEach(e -> System.out.println(e.nomeEpisodio())));
 
+        List<DadosEpisodio> dadosEpisodios = temporadas
+                .stream()
+                .flatMap(t -> t.episodios().stream())
+                .toList();
+
+        System.out.println("\nTOP 5 EPISÓDIOS");
+
+        dadosEpisodios.stream()
+                .filter(e -> !e.avaliacao().equalsIgnoreCase("N/A"))
+                .sorted(Comparator.comparing(DadosEpisodio::avaliacao).reversed())
+                .limit(5)
+                .forEach(System.out::println);
 
         leitura.close();
     }
