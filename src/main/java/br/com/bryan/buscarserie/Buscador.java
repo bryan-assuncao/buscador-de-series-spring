@@ -1,6 +1,6 @@
-package br.com.bryan.screenmatch;
+package br.com.bryan.buscarserie;
 
-import br.com.bryan.screenmatch.main.Main;
+import br.com.bryan.buscarserie.main.Main;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

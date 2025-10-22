@@ -1,4 +1,4 @@
-package br.com.bryan.screenmatch.service;
+package br.com.bryan.buscarserie.service;
 
 import java.io.IOException;
 import java.net.URI;

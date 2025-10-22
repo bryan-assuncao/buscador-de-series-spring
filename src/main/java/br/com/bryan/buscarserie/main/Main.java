@@ -1,17 +1,17 @@
-package br.com.bryan.screenmatch.main;
+package br.com.bryan.buscarserie.main;
 
-import br.com.bryan.screenmatch.model.DadosEpisodio;
-import br.com.bryan.screenmatch.model.DadosSerie;
-import br.com.bryan.screenmatch.model.DadosTemporada;
-import br.com.bryan.screenmatch.service.ConsumoAPI;
-import br.com.bryan.screenmatch.service.ConverteDados;
+import br.com.bryan.buscarserie.model.DadosEpisodio;
+import br.com.bryan.buscarserie.model.DadosSerie;
+import br.com.bryan.buscarserie.model.DadosTemporada;
+import br.com.bryan.buscarserie.model.Episodios;
+import br.com.bryan.buscarserie.service.ConsumoAPI;
+import br.com.bryan.buscarserie.service.ConverteDados;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import io.github.cdimascio.dotenv.Dotenv;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -60,6 +60,29 @@ public class Main {
                 .limit(5)
                 .forEach(System.out::println);
 
-        leitura.close();
+        System.out.println("-----------------------------------------------------------");
+
+        List<Episodios> episodios = temporadas.stream()
+                        .flatMap(t -> t.episodios().stream()
+                        .map(d -> new Episodios(t.temporada(), d)))
+                        .toList();
+        episodios.forEach(System.out::println);
+
+        System.out.println("-----------------------------------------------------------");
+
+        System.out.println("A partir de que ano você deseja ver os episódio? ");
+        var ano = leitura.nextInt();
+        leitura.nextLine();
+
+        LocalDate dataBusca = LocalDate.of(ano, 1, 1);
+        DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        episodios.stream()
+                .filter(e -> e.getDataLancamento() != null && e.getDataLancamento().isAfter(dataBusca))
+                .forEach(e -> System.out.println(
+                        "Temporada: " + e.getTemporada() +
+                                " Episódio: " + e.getNomeEpisodio() +
+                                " Data lançamento: " + e.getDataLancamento().format(formatador)
+                ));
     }
 }
