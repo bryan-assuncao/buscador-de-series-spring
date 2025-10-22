@@ -12,7 +12,6 @@ import io.github.cdimascio.dotenv.Dotenv;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-import java.util.stream.Collectors;
 
 
 public class Main {
@@ -52,12 +51,13 @@ public class Main {
                 .flatMap(t -> t.episodios().stream())
                 .toList();
 
-        System.out.println("\nTOP 5 EPISÓDIOS");
+        System.out.println("\nTOP 10 EPISÓDIOS");
 
         dadosEpisodios.stream()
                 .filter(e -> !e.avaliacao().equalsIgnoreCase("N/A"))
                 .sorted(Comparator.comparing(DadosEpisodio::avaliacao).reversed())
-                .limit(5)
+                .limit(10)
+                .map(e -> e.nomeEpisodio().toUpperCase())
                 .forEach(System.out::println);
 
         System.out.println("-----------------------------------------------------------");
