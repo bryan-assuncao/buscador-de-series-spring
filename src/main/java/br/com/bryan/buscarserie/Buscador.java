@@ -1,6 +1,6 @@
 package br.com.bryan.buscarserie;
 
-import br.com.bryan.buscarserie.main.Main;
+import br.com.bryan.buscarserie.principal.Principal;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -15,8 +15,7 @@ public class Buscador implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-        Main main = new Main();
+        Principal main = new Principal();
         main.exibirMenu();
-
     }
 }
