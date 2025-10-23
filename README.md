@@ -1,7 +1,3 @@
-Aqui está uma sugestão de README.MD para o seu projeto, com base nos arquivos que você forneceu.
-
------
-
 # Buscador de Séries
 
 Essa é uma aplicação de console (CLI) desenvolvida em Java e Spring Boot. O objetivo deste projeto é consumir a API do [OMDB](http://www.omdbapi.com/) para buscar e exibir informações detalhadas sobre séries de TV.
