@@ -68,6 +68,18 @@ public class Main {
                         .toList();
         episodios.forEach(System.out::println);
 
+        System.out.print("Digite o nome do episódio: ");
+        String tituloEpisodio = leitura.next();
+        Optional<Episodios> episodioBuscado = episodios.stream()
+                .filter(e -> e.getNomeEpisodio().toUpperCase().contains(tituloEpisodio.toUpperCase()))
+                .findFirst();
+        if(episodioBuscado.isPresent()){
+            System.out.println("Episódio encontrado");
+            System.out.println("Temporada: " + episodioBuscado.get().getTemporada());
+            System.out.println("Número: " + episodioBuscado.get().getNumeroEpisodio());
+        } else {
+            System.out.println("Episódio não encontrado.");
+        }
         System.out.println("-----------------------------------------------------------");
 
         System.out.println("A partir de que ano você deseja ver os episódio? ");
